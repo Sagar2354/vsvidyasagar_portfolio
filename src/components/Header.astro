@@ -13,14 +13,14 @@ const { linkedin, github } = SITE_CONTENT.hero;
   <div class="mx-auto w-full max-w-7xl flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-6 md:px-8 py-3 rounded-[2rem] md:rounded-full bg-[#0a1224]/65 backdrop-blur-[20px] border border-white/[0.08] shadow-[0_20px_50px_rgba(2,6,23,0.5)] transition-all duration-300">
     
     <!-- Mobile Constrained Row: Logo, Center Resume, Hamburger -->
-    <div class="flex w-full items-center justify-between md:w-auto">
+    <div class="relative flex w-full items-center justify-between md:static md:w-auto">
       <!-- Left: Brand / Logo -->
       <a href="#hero" aria-label="Home" class="flex shrink-0 items-center pl-2">
         <img src="/infinity.svg" class="h-8 w-auto" alt="logo" />
       </a>
 
       <!-- Center (Mobile Only): Resume -->
-      <div class="flex flex-1 items-center justify-center md:hidden">
+      <div class="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center md:hidden">
         {
           resumeHref && (
             <a
