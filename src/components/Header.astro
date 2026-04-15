@@ -10,7 +10,7 @@ const { linkedin, github } = SITE_CONTENT.hero;
 ---
 
 <header class="sticky top-0 z-50 px-4 pt-5 md:px-8">
-  <nav class="mx-auto flex max-w-5xl items-center justify-between gap-4 rounded-full border border-white/10 bg-[#0a1224]/72 px-4 py-3 shadow-[0_18px_42px_rgba(2,6,23,0.35)] backdrop-blur-2xl">
+  <nav class="relative mx-auto flex max-w-5xl items-center justify-between gap-4 rounded-full border border-white/10 bg-[#0a1224]/72 px-4 py-3 shadow-[0_18px_42px_rgba(2,6,23,0.35)] backdrop-blur-2xl">
     <a href="#hero" aria-label="Home" class="shrink-0 text-base font-semibold tracking-wide text-white">
       {brandText}
     </a>
@@ -30,7 +30,7 @@ const { linkedin, github } = SITE_CONTENT.hero;
       }
     </ul>
 
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-3 md:gap-4">
       {
         linkedin && (
           <a href={linkedin} target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex text-white/80 transition-colors duration-300 hover:text-primary">
@@ -56,12 +56,74 @@ const { linkedin, github } = SITE_CONTENT.hero;
           <a
             href={resumeHref}
             download
-            class="rounded-full border border-primary/50 bg-primary/10 px-5 py-2.5 text-sm font-semibold text-primary transition-colors duration-300 hover:bg-primary hover:text-black"
+            class="hidden rounded-full border border-primary/50 bg-primary/10 px-5 py-2.5 text-sm font-semibold text-primary transition-colors duration-300 hover:bg-primary hover:text-black sm:inline-block"
           >
             Resume
           </a>
         )
       }
+
+      <button
+        id="mobile-menu-btn"
+        class="lg:hidden flex items-center p-1.5 ml-1 text-white/80 transition duration-300 hover:text-primary focus:outline-none"
+        aria-label="Toggle Navigation"
+      >
+        <svg class="h-6 w-6 stroke-current" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
     </div>
   </nav>
+
+  <!-- Mobile Menu Dropdown -->
+  <div id="mobile-menu" class="hidden absolute left-4 right-4 top-20 rounded-2xl border border-white/10 bg-[#0a1224]/95 p-5 shadow-[0_18px_42px_rgba(2,6,23,0.35)] backdrop-blur-2xl lg:hidden">
+    <ul class="flex flex-col gap-4">
+      {
+        navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="mobile-nav-link block text-base font-medium text-white/80 transition-colors duration-300 hover:text-primary hover:translate-x-1"
+            >
+              {link.text}
+            </a>
+          </li>
+        ))
+      }
+      {
+        resumeHref && (
+          <li class="mt-2 border-t border-white/10 pt-4 sm:hidden">
+            <a
+              href={resumeHref}
+              download
+              class="inline-block w-full text-center rounded-full border border-primary/50 bg-primary/10 px-5 py-2.5 text-sm font-semibold text-primary transition-colors duration-300 hover:bg-primary hover:text-black"
+            >
+              Resume
+            </a>
+          </li>
+        )
+      }
+    </ul>
+  </div>
 </header>
+
+<script>
+  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+  }
+
+  // Close menu when clicking a link
+  mobileNavLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      if (mobileMenu) {
+        mobileMenu.classList.add("hidden");
+      }
+    });
+  });
+</script>

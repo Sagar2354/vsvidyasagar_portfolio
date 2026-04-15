@@ -9,6 +9,7 @@ const {
   title,
   description,
   siteLogo,
+  brandText,
   navLinks,
   resumeHref,
   lang,
@@ -95,7 +96,7 @@ const ogImgUrl = canonicalURL + socialImage;
       });
     </script>
 
-    <Header siteLogo={siteLogo} navLinks={navLinks} resumeHref={resumeHref} />
+    <Header siteLogo={siteLogo} brandText={brandText} navLinks={navLinks} resumeHref={resumeHref} />
 
     <main class="mx-auto max-w-7xl px-5 md:px-8">
       <slot />
