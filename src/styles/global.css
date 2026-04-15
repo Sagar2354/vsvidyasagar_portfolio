@@ -53,10 +53,9 @@
 }
 
 html {
-  background:
-    radial-gradient(circle at top left, rgb(168 85 247 / 0.18), transparent 24%),
-    radial-gradient(circle at top right, rgb(59 130 246 / 0.14), transparent 28%),
-    linear-gradient(180deg, #020617 0%, #020617 40%, #040916 100%);
+  background-color: #050505;
+  overscroll-behavior-y: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
