@@ -1,0 +1,27 @@
+---
+import Section from "./Section.astro";
+import type { AboutProps } from "@types";
+
+type Props = AboutProps;
+
+const { description, stats = [] } = Astro.props;
+---
+
+<Section text="About Me" href="about">
+  <div class="grid gap-8 lg:grid-cols-[1.3fr_1fr]">
+    <article class="tilt-card fade-in-section rounded-3xl border border-white/10 bg-white/4 p-8 shadow-[0_24px_70px_rgba(2,6,23,0.22)] md:p-10">
+      <p class="text-lg leading-8 text-neutral">{description}</p>
+    </article>
+
+    <div class="grid gap-4 sm:grid-cols-2">
+      {
+        stats.map(({ value, label }) => (
+          <article class="tilt-card fade-in-section rounded-3xl border border-white/10 bg-white/4 p-6 text-center shadow-[0_24px_70px_rgba(2,6,23,0.18)]">
+            <p class="mb-2 font-serif text-4xl font-bold text-primary">{value}</p>
+            <p class="text-sm text-neutral">{label}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</Section>

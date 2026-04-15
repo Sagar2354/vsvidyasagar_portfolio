@@ -1,0 +1,98 @@
+---
+import Header from "@components/Header.astro";
+import { Font } from "astro:assets";
+import { SITE_CONFIG } from "@config";
+import Footer from "@components/Footer.astro";
+import ParticleBackground from "@components/ParticleBackground.astro";
+
+const {
+  title,
+  description,
+  siteLogo,
+  navLinks,
+  resumeHref,
+  lang,
+  author,
+  socialLinks,
+  socialImage,
+  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+} = SITE_CONFIG;
+
+const ogImgUrl = canonicalURL + socialImage;
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-pt-16 scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="author" content={author} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <Font cssVariable="--font-gabarito" preload />
+    <Font cssVariable="--font-be-vietnam-pro" preload />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImgUrl} />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImgUrl} />
+  </head>
+  <body class="bg-black font-sans text-white">
+    <ParticleBackground />
+    <script>
+      // Fade In Observer
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in-section').forEach((el) => {
+        observer.observe(el);
+      });
+
+      // 3D Tilt Logic
+      document.querySelectorAll('.tilt-card').forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+          if (window.innerWidth < 768) return; 
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = ((y - centerY) / centerY) * -4;
+          const rotateY = ((x - centerX) / centerX) * 4;
+          
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        });
+      });
+    </script>
+    <Header siteLogo={siteLogo} navLinks={navLinks} resumeHref={resumeHref} />
+    <main class="mx-auto max-w-7xl px-5 md:px-8">
+      <slot />
+    </main>
+    <Footer author={author} socialLinks={socialLinks} />
+  </body>
+</html>

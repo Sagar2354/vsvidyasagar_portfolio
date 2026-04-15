@@ -1,0 +1,19 @@
+---
+import type { SiteConfig } from "@types";
+
+type Props = Pick<SiteConfig, "author" | "socialLinks">;
+
+const { author, socialLinks } = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+
+<footer
+  class="w-full border-t border-white/10 px-5 pt-5 pb-8 text-center text-white"
+>
+  <p class="mb-5 text-sm font-medium italic text-neutral">
+    Turning “what is this?” into “this makes sense.”
+  </p>
+  <p class="text-xs">
+    {author} &copy; {currentYear}.
+  </p>
+</footer>

@@ -1,0 +1,64 @@
+---
+import Section from "./Section.astro";
+import type { ContactProps } from "@types";
+
+type Props = ContactProps;
+
+const { email, phone, location, linkedin, github, resumeHref } = Astro.props;
+---
+
+<Section text="Contact" href="contact">
+  <div class="rounded-3xl border border-primary/20 bg-linear-to-br from-primary/12 via-white/4 to-transparent p-8 md:p-10 shadow-[0_24px_70px_rgba(2,6,23,0.22)]">
+    <p class="mb-4 text-xs font-semibold tracking-[0.22em] text-primary uppercase">
+      Let's Build Something Useful
+    </p>
+    <p class="mb-8 max-w-2xl text-base text-neutral">
+      I am open to data engineering roles, cloud data platform work, and projects
+      focused on scalable pipelines, data quality, and analytics enablement.
+    </p>
+
+    <div class="grid gap-4 md:grid-cols-2">
+      <a class="rounded-2xl border border-white/10 bg-black/25 p-5" href={`mailto:${email}`}>
+        <p class="mb-2 text-sm text-white/60">Email</p>
+        <p class="text-base text-white">{email}</p>
+      </a>
+      <div class="rounded-2xl border border-white/10 bg-black/25 p-5">
+        <p class="mb-2 text-sm text-white/60">Phone</p>
+        <p class="text-base text-white">{phone}</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-black/25 p-5">
+        <p class="mb-2 text-sm text-white/60">Location</p>
+        <p class="text-base text-white">{location}</p>
+      </div>
+      <div class="flex flex-wrap gap-3 rounded-2xl border border-white/10 bg-black/25 p-5">
+        {linkedin && (
+          <a
+            href={linkedin}
+            target="_blank"
+            class="inline-flex items-center justify-center rounded-full border border-white/10 px-4 py-2 text-center text-sm text-white transition-colors hover:border-primary hover:text-primary"
+          >
+            LinkedIn
+          </a>
+        )}
+        {github && (
+          <a
+            href={github}
+            target="_blank"
+            class="inline-flex items-center justify-center rounded-full border border-white/10 px-4 py-2 text-center text-sm text-white transition-colors hover:border-primary hover:text-primary"
+          >
+            GitHub
+          </a>
+        )}
+        {resumeHref && (
+          <a
+            href={resumeHref}
+            target="_blank"
+            class="inline-flex items-center justify-center rounded-full border border-white/10 px-4 py-2 text-center text-sm text-white transition-colors hover:border-primary hover:text-primary"
+          >
+            Resume
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</Section>
