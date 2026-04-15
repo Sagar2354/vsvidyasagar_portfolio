@@ -1,35 +1,38 @@
-# AstroZen - Personal Portfolio Website
+# VS Vidyasagar - Data Engineering Portfolio
 
-AstroZen is a minimalist, accessible and responsive portfolio template for your personal portfolio website. It is built with Astro and TailwindCSS.
+A modern, high-performance web portfolio showcasing my experience as an Associate Data Engineer. Built with a focus on premium aesthetics, interactive design, and optimal web performance.
 
-![zen-og](https://github.com/user-attachments/assets/7a72aaae-6652-4cd0-becc-8e6a3c224993)
+## 🚀 Features
 
-> [!NOTE]
-> The information contained in this template, including names, images, and content, is entirely fictitious and is intended solely to give the design a realistic appearance. Any coincidence with real-life people, events, or situations is purely coincidental. It is recommended that you replace this information with your own information.
+- **Interactive UI**: Custom 3D tilt hover effects and smooth scroll-based fade-in animations.
+- **Dynamic Backgrounds**: Lightweight, canvas-based particle generation and cursor-tracking glow aesthetics.
+- **Responsive Design**: Carefully crafted fluid typography and adaptive spacing that guarantees pixel-perfect rendering across 4K displays down to mobile screens.
+- **Performance Optimized**: Built using the highly acclaimed **Astro** web framework and styled with **Tailwind CSS** for near-zero Javascript overhead on standard renders.
 
-## 🔥 Features
+## 🛠 Tech Stack
 
-- [x] Minimalist design. clean and simple
-- [x] Mobile-first responsive layout
-- [x] SEO-friendly and accessible
-- [x] Easy to customize with a single configuration file
+- [Astro](https://astro.build) - Next-gen island architecture web framework.
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework.
+- [TypeScript](https://www.typescriptlang.org/) - Typed JavaScript for robust configuration.
 
-## ✅ Lighthouse Score
+## 💻 Local Development
 
-![performance](https://github.com/user-attachments/assets/4f95e2ca-03f9-4996-9e34-dcd179194c58)
+1. **Install dependencies**:
+   ```bash
+   pnpm install
+   ```
 
-## 🚀 Getting Started
+2. **Start the development server**:
+   ```bash
+   pnpm run dev
+   ```
 
-Clone this repository to your local machine using Git.
+3. **Build for production**:
+   ```bash
+   pnpm run build
+   ```
 
-```scheme
-git clone https://github.com/immois/astro-zen.git
-cd astro-zen
-```
-
-| Command        | Action                                       |
-| :------------- | :------------------------------------------- |
-| `pnpm install` | Installs dependencies                        |
-| `pnpm dev`     | Starts local dev server at `localhost:4321`  |
-| `pnpm build`   | Build your production site to `./dist/`      |
-| `pnpm preview` | Preview your build locally, before deploying |
+## 📬 Contact
+- **LinkedIn**: [VS Vidyasagar](https://linkedin.com/in/vs-vidyasagar)
+- **GitHub**: [Sagar2354](https://github.com/Sagar2354)
+- **Email**: [vidyasagar2354@gmail.com](mailto:vidyasagar2354@gmail.com)
