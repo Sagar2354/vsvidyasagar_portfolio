@@ -6,7 +6,7 @@ export const SITE_CONFIG: SiteConfig = {
   description:
     "Associate Data Engineer in Bangalore building scalable ETL pipelines, Azure data platforms, and high-quality analytics-ready datasets with PySpark, SQL, and Medallion Architecture.",
   lang: "en",
-  siteLogo: "/images/d.png",
+  siteLogo: "/images/round.png",
   brandText: "VS Vidyasagar",
   navLinks: [
     { text: "Home", href: "#hero" },
