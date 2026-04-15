@@ -54,7 +54,6 @@
 
 html {
   background-color: #050505;
-  overscroll-behavior-y: none;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -62,7 +61,6 @@ body {
   min-height: 100vh;
   color: var(--color-white);
   background: transparent;
-  overscroll-behavior-y: none;
 }
 
 ::selection {
