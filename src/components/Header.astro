@@ -15,13 +15,16 @@ const { linkedin, github } = SITE_CONTENT.hero;
       {brandText}
     </a>
 
-    <ul class="hidden flex-1 items-center justify-center gap-5 lg:flex">
+    <ul class="relative hidden flex-1 items-center justify-center gap-1 lg:flex" id="desktop-nav-list">
+      <!-- Glow Indicator -->
+      <div id="nav-indicator" class="absolute left-0 top-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 transition-all duration-300 ease-out pointer-events-none z-0 border border-white/10 backdrop-blur-md"></div>
       {
         navLinks.map((link) => (
-          <li>
+          <li class="z-10">
             <a
               href={link.href}
-              class="text-sm font-medium text-white/80 transition-colors duration-300 hover:text-primary"
+              class="desktop-nav-link relative block px-4 py-2 text-sm font-medium text-white/80 transition-colors duration-300 hover:text-white"
+              data-section={link.href.substring(1)}
             >
               {link.text}
             </a>
@@ -108,6 +111,7 @@ const { linkedin, github } = SITE_CONTENT.hero;
 </header>
 
 <script>
+  // Mobile Menu Logic
   const mobileMenuBtn = document.getElementById("mobile-menu-btn");
   const mobileMenu = document.getElementById("mobile-menu");
   const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
@@ -118,12 +122,117 @@ const { linkedin, github } = SITE_CONTENT.hero;
     });
   }
 
-  // Close menu when clicking a link
   mobileNavLinks.forEach(link => {
     link.addEventListener("click", () => {
       if (mobileMenu) {
         mobileMenu.classList.add("hidden");
       }
     });
+  });
+
+  // Desktop Navbar Scrollspy & Glowing Pill Indicator
+  document.addEventListener("DOMContentLoaded", () => {
+    const navList = document.getElementById("desktop-nav-list");
+    const indicator = document.getElementById("nav-indicator");
+    const navLinks = document.querySelectorAll(".desktop-nav-link");
+    
+    if (!navList || !indicator || navLinks.length === 0) return;
+
+    let activeElement = null;
+    let isHovering = false;
+
+    const sections = Array.from(navLinks)
+      .map(link => document.getElementById(link.getAttribute("data-section")))
+      .filter(Boolean);
+
+    const updateIndicator = (el) => {
+      if (!el) {
+        indicator.style.opacity = "0";
+        return;
+      }
+      
+      const navRect = navList.getBoundingClientRect();
+      const linkRect = el.getBoundingClientRect();
+      
+      const left = linkRect.left - navRect.left;
+      const top = linkRect.top - navRect.top;
+      
+      indicator.style.transform = `translate(${left}px, ${top}px)`;
+      indicator.style.width = `${linkRect.width}px`;
+      indicator.style.height = `${linkRect.height}px`;
+      indicator.style.opacity = "1";
+    };
+
+    // Intersection Observer to detect scroll position
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -60% 0px", // triggers when section is in top half
+      threshold: 0
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          activeElement = document.querySelector(`.desktop-nav-link[data-section="${id}"]`);
+          
+          // Reset all link colors
+          navLinks.forEach(l => {
+            l.classList.remove('text-white');
+            l.classList.add('text-white/80');
+          });
+          
+          if (activeElement) {
+            // Highlight current active
+            activeElement.classList.remove('text-white/80');
+            activeElement.classList.add('text-white');
+            
+            // Move indicator if valid
+            if (!isHovering) {
+              updateIndicator(activeElement);
+            }
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    sections.forEach(sec => observer.observe(sec));
+
+    // Hover Interaction physics
+    navLinks.forEach(link => {
+      link.addEventListener("mouseenter", (e) => {
+        isHovering = true;
+        updateIndicator(e.target);
+      });
+    });
+
+    navList.addEventListener("mouseleave", () => {
+      isHovering = false;
+      updateIndicator(activeElement);
+    });
+
+    // Window Resize Physics recalculation
+    window.addEventListener("resize", () => {
+      if (!isHovering && activeElement) {
+        updateIndicator(activeElement);
+      }
+    });
+
+    // Initial positioning after layout calculation
+    setTimeout(() => {
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+        activeElement = document.querySelector(`.desktop-nav-link[data-section="${hash}"]`);
+      } else {
+        // Fallback to first section if nothing intersects yet
+        activeElement = activeElement || navLinks[0];
+      }
+      if (activeElement) {
+        activeElement.classList.remove('text-white/80');
+        activeElement.classList.add('text-white');
+        updateIndicator(activeElement);
+      }
+    }, 150);
   });
 </script>
