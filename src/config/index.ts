@@ -1,7 +1,7 @@
 import type { SiteConfig, SiteContent } from "../types";
 
 export const SITE_CONFIG: SiteConfig = {
-  title: "VS Vidyasagar",
+  title: "VS Vidyasagar - DE",
   author: "VS Vidyasagar",
   description:
     "Associate Data Engineer in Bangalore building scalable ETL pipelines, Azure data platforms, and high-quality analytics-ready datasets with PySpark, SQL, and Medallion Architecture.",
