@@ -77,35 +77,35 @@ const { linkedin, github } = SITE_CONTENT.hero;
   document.addEventListener("DOMContentLoaded", () => {
     const navContainer = document.getElementById("nav-container");
     const indicator = document.getElementById("nav-indicator");
-    const navLinks = document.querySelectorAll(".desktop-nav-link");
+    const navLinks = document.querySelectorAll<HTMLElement>(".desktop-nav-link");
 
     if (!navContainer || !indicator || navLinks.length === 0) return;
 
-    let activeElement = null;
+    let activeElement: HTMLElement | null = null;
     let isHovering = false;
 
     // Find all trackable sections using the data-section markers
     const sections = Array.from(navLinks)
-      .map(link => document.getElementById(link.getAttribute("data-section")))
-      .filter(Boolean);
+      .map(link => document.getElementById(link.getAttribute("data-section") || ""))
+      .filter((sec): sec is HTMLElement => sec !== null);
 
     // Fluid indicator transform function decoupled from hardcoded logic
-    function moveIndicator(element) {
+    function moveIndicator(element: HTMLElement | null) {
       if (!element) {
-        indicator.style.opacity = "0";
+        indicator!.style.opacity = "0";
         return;
       }
       
-      const containerRect = navContainer.getBoundingClientRect();
+      const containerRect = navContainer!.getBoundingClientRect();
       const linkRect = element.getBoundingClientRect();
 
       const left = linkRect.left - containerRect.left;
       const top = linkRect.top - containerRect.top;
 
-      indicator.style.transform = `translate3d(${left}px, ${top}px, 0)`;
-      indicator.style.width = `${linkRect.width}px`;
-      indicator.style.height = `${linkRect.height}px`;
-      indicator.style.opacity = "1";
+      indicator!.style.transform = `translate3d(${left}px, ${top}px, 0)`;
+      indicator!.style.width = `${linkRect.width}px`;
+      indicator!.style.height = `${linkRect.height}px`;
+      indicator!.style.opacity = "1";
     }
 
     // Scroll Tracking Module
@@ -115,11 +115,11 @@ const { linkedin, github } = SITE_CONTENT.hero;
       threshold: 0
     };
 
-    const sectionObserver = new IntersectionObserver((entries) => {
+    const sectionObserver = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const id = entry.target.id;
-          activeElement = document.querySelector(`.desktop-nav-link[data-section="${id}"]`);
+          activeElement = document.querySelector<HTMLElement>(`.desktop-nav-link[data-section="${id}"]`);
 
           navLinks.forEach(link => {
             link.classList.remove("text-white");
@@ -144,7 +144,7 @@ const { linkedin, github } = SITE_CONTENT.hero;
     navLinks.forEach(link => {
       link.addEventListener("mouseenter", (e) => {
         isHovering = true;
-        moveIndicator(e.target);
+        moveIndicator(e.target as HTMLElement);
       });
     });
 
@@ -163,9 +163,9 @@ const { linkedin, github } = SITE_CONTENT.hero;
     setTimeout(() => {
       const hash = window.location.hash.substring(1);
       if (hash) {
-        activeElement = document.querySelector(`.desktop-nav-link[data-section="${hash}"]`);
+        activeElement = document.querySelector<HTMLElement>(`.desktop-nav-link[data-section="${hash}"]`);
       } else {
-        activeElement = navLinks[0];
+        activeElement = navLinks[0] as HTMLElement;
       }
       
       if (activeElement) {
