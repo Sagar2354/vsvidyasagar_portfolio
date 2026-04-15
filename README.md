@@ -33,6 +33,6 @@ A modern, high-performance web portfolio showcasing my experience as an Associat
    ```
 
 ## 📬 Contact
-- **LinkedIn**: [VS Vidyasagar](https://linkedin.com/in/vs-vidyasagar)
+- **LinkedIn**: [VS Vidyasagar](https://www.linkedin.com/in/vs-vidyasagar-9b1158190/)
 - **GitHub**: [Sagar2354](https://github.com/Sagar2354)
 - **Email**: [vidyasagar2354@gmail.com](mailto:vidyasagar2354@gmail.com)
