@@ -20,7 +20,7 @@ export const SITE_CONFIG: SiteConfig = {
   ],
   resumeHref: "/docs/VS_Vidyasagar_Resume_2026.pdf",
   socialLinks: [
-    { text: "LinkedIn", href: "https://linkedin.com/in/vs-vidyasagar" },
+    { text: "LinkedIn", href: "https://www.linkedin.com/in/vs-vidyasagar-9b1158190/" },
     { text: "Github", href: "https://github.com/Sagar2354" },
     {
       text: "Resume",
