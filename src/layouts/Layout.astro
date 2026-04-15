@@ -50,49 +50,57 @@ const ogImgUrl = canonicalURL + socialImage;
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImgUrl} />
   </head>
+
   <body class="bg-black font-sans text-white">
     <ParticleBackground />
+
     <script>
       // Fade In Observer
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
+            entry.target.classList.add("is-visible");
             observer.unobserve(entry.target);
           }
         });
       }, { threshold: 0.1 });
 
-      document.querySelectorAll('.fade-in-section').forEach((el) => {
+      document.querySelectorAll(".fade-in-section").forEach((el) => {
         observer.observe(el);
       });
 
-      // 3D Tilt Logic
-      document.querySelectorAll('.tilt-card').forEach((card) => {
-        card.addEventListener('mousemove', (e) => {
-          if (window.innerWidth < 768) return; 
-          const rect = card.getBoundingClientRect();
-          const x = (e as MouseEvent).clientX - rect.left;
-          const y = (e as MouseEvent).clientY - rect.top;
-          
+      // 3D Tilt Logic (FIXED TYPES)
+      document.querySelectorAll(".tilt-card").forEach((card) => {
+        const el = card as HTMLElement;
+
+        el.addEventListener("mousemove", (e: MouseEvent) => {
+          if (window.innerWidth < 768) return;
+
+          const rect = el.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
-          
+
           const rotateX = ((y - centerY) / centerY) * -4;
           const rotateY = ((x - centerX) / centerX) * 4;
-          
-          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+
+          el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
         });
-        
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+
+        el.addEventListener("mouseleave", () => {
+          el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
         });
       });
     </script>
+
     <Header siteLogo={siteLogo} navLinks={navLinks} resumeHref={resumeHref} />
+
     <main class="mx-auto max-w-7xl px-5 md:px-8">
       <slot />
     </main>
+
     <Footer author={author} socialLinks={socialLinks} />
   </body>
 </html>
