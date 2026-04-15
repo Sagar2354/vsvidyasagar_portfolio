@@ -9,20 +9,25 @@ const { navLinks, resumeHref, brandText } = Astro.props;
 const { linkedin, github } = SITE_CONTENT.hero;
 ---
 
-<header class="sticky top-0 z-50 bg-[#0a1224]/60 backdrop-blur-[16px] border-b border-white/[0.08] px-4 py-4 md:px-8 shadow-sm">
-  <div class="mx-auto flex max-w-7xl flex-col items-center gap-4 md:flex-row md:justify-between">
+<header class="sticky top-0 z-50 w-full px-4 pt-4 md:px-8 flex justify-center">
+  <div class="mx-auto w-full max-w-7xl flex flex-nowrap items-center justify-between gap-4 px-6 md:px-8 py-3 rounded-full bg-[#0a1224]/65 backdrop-blur-[20px] border border-white/[0.08] shadow-[0_20px_50px_rgba(2,6,23,0.5)] overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
     <!-- Left: Brand / Logo -->
-    <a href="#hero" aria-label="Home" class="flex items-center">
+    <a href="#hero" aria-label="Home" class="flex shrink-0 items-center pl-2">
       <img src="/infinity.svg" class="h-8 w-auto" alt="logo" />
     </a>
 
     <!-- Center: Navigation Links -->
-    <nav>
-      <ul class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm md:text-base lg:gap-6">
+    <nav class="relative flex-none md:flex-1" id="nav-container">
+      <div id="nav-indicator" class="absolute left-0 top-0 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 pointer-events-none z-0 border border-white/10 backdrop-blur-md" style="transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), width 0.5s cubic-bezier(0.22, 1, 0.36, 1), height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease-in-out; will-change: transform, width, height;"></div>
+      <ul class="relative z-10 flex flex-nowrap items-center justify-start md:justify-center gap-2 lg:gap-4 whitespace-nowrap">
         {
           navLinks.map((link) => (
             <li>
-              <a href={link.href} class="text-white/80 hover:text-white">
+              <a 
+                href={link.href} 
+                class="desktop-nav-link block px-3 py-2 text-white/80 transition-colors duration-200 hover:text-white"
+                data-section={link.href.substring(1)}
+              >
                 {link.text}
               </a>
             </li>
@@ -32,10 +37,10 @@ const { linkedin, github } = SITE_CONTENT.hero;
     </nav>
 
     <!-- Right: End Links (Social & Resume) -->
-    <div class="hidden items-center gap-4 lg:flex">
+    <div class="flex shrink-0 items-center flex-nowrap gap-3 lg:gap-4 whitespace-nowrap pr-2">
       {
         linkedin && (
-          <a href={linkedin} target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white">
+          <a href={linkedin} target="_blank" rel="noopener noreferrer" class="hidden text-white/80 transition-colors duration-200 hover:text-white lg:block">
             <svg viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current stroke-[1.8]">
               <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
               <rect x="2" y="9" width="4" height="12" rx="1" />
@@ -46,7 +51,7 @@ const { linkedin, github } = SITE_CONTENT.hero;
       }
       {
         github && (
-          <a href={github} target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white">
+          <a href={github} target="_blank" rel="noopener noreferrer" class="hidden text-white/80 transition-colors duration-200 hover:text-white lg:block">
             <svg viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current stroke-[1.8]">
               <path d="M9 19c-4 1.5-4-2-6-2m12 4v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.1-1.5 6.1-6.7A5.2 5.2 0 0 0 18.8 4 4.8 4.8 0 0 0 18.7.4S17.5 0 15 1.7a13.4 13.4 0 0 0-6 0C6.5 0 5.3.4 5.3.4A4.8 4.8 0 0 0 5.2 4a5.2 5.2 0 0 0-1.4 3.8c0 5.2 3.1 6.4 6.1 6.7A3.4 3.4 0 0 0 9 17.1V21" />
             </svg>
@@ -58,7 +63,7 @@ const { linkedin, github } = SITE_CONTENT.hero;
           <a
             href={resumeHref}
             download
-            class="rounded border border-primary/50 bg-primary/10 px-5 py-2 text-sm font-semibold text-primary hover:bg-primary hover:text-black"
+            class="rounded-full bg-gradient-to-r from-blue-500 to-violet-500 px-4 py-2 text-sm font-semibold text-white transition-all duration-300 hover:shadow-[0_0_15px_rgba(139,92,246,0.5)] hover:scale-105 hover:brightness-110"
           >
             Resume
           </a>
@@ -67,3 +72,107 @@ const { linkedin, github } = SITE_CONTENT.hero;
     </div>
   </div>
 </header>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const navContainer = document.getElementById("nav-container");
+    const indicator = document.getElementById("nav-indicator");
+    const navLinks = document.querySelectorAll(".desktop-nav-link");
+
+    if (!navContainer || !indicator || navLinks.length === 0) return;
+
+    let activeElement = null;
+    let isHovering = false;
+
+    // Find all trackable sections using the data-section markers
+    const sections = Array.from(navLinks)
+      .map(link => document.getElementById(link.getAttribute("data-section")))
+      .filter(Boolean);
+
+    // Fluid indicator transform function decoupled from hardcoded logic
+    function moveIndicator(element) {
+      if (!element) {
+        indicator.style.opacity = "0";
+        return;
+      }
+      
+      const containerRect = navContainer.getBoundingClientRect();
+      const linkRect = element.getBoundingClientRect();
+
+      const left = linkRect.left - containerRect.left;
+      const top = linkRect.top - containerRect.top;
+
+      indicator.style.transform = `translate3d(${left}px, ${top}px, 0)`;
+      indicator.style.width = `${linkRect.width}px`;
+      indicator.style.height = `${linkRect.height}px`;
+      indicator.style.opacity = "1";
+    }
+
+    // Scroll Tracking Module
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -60% 0px",
+      threshold: 0
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          activeElement = document.querySelector(`.desktop-nav-link[data-section="${id}"]`);
+
+          navLinks.forEach(link => {
+            link.classList.remove("text-white");
+            link.classList.add("text-white/80");
+          });
+
+          if (activeElement) {
+            activeElement.classList.remove("text-white/80");
+            activeElement.classList.add("text-white");
+            
+            if (!isHovering) {
+              moveIndicator(activeElement);
+            }
+          }
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(sec => sectionObserver.observe(sec));
+
+    // Reactive Interactivity (Hover Physics)
+    navLinks.forEach(link => {
+      link.addEventListener("mouseenter", (e) => {
+        isHovering = true;
+        moveIndicator(e.target);
+      });
+    });
+
+    navContainer.addEventListener("mouseleave", () => {
+      isHovering = false;
+      moveIndicator(activeElement);
+    });
+
+    window.addEventListener("resize", () => {
+      if (!isHovering && activeElement) {
+        moveIndicator(activeElement);
+      }
+    });
+
+    // Cold-boot mapping
+    setTimeout(() => {
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+        activeElement = document.querySelector(`.desktop-nav-link[data-section="${hash}"]`);
+      } else {
+        activeElement = navLinks[0];
+      }
+      
+      if (activeElement) {
+        activeElement.classList.remove("text-white/80");
+        activeElement.classList.add("text-white");
+        moveIndicator(activeElement);
+      }
+    }, 150);
+  });
+</script>
