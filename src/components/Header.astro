@@ -9,7 +9,7 @@ const { navLinks, resumeHref } = Astro.props;
 const { linkedin, github } = SITE_CONTENT.hero;
 ---
 
-<header class="sticky top-0 z-50 w-full bg-[#050505]/95 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+<header class="sticky top-0 z-50 w-full bg-white/[0.03] backdrop-blur-[24px] border-b border-[1px] border-white/10 border-t-white/20 border-l-white/20 transition-all duration-300">
   <div class="mx-auto w-full max-w-7xl flex flex-col md:flex-row md:items-center md:justify-between py-4 px-6 md:px-8">
     
     <!-- Mobile Constrained Row: Logo, Center Resume, Hamburger -->
@@ -26,7 +26,7 @@ const { linkedin, github } = SITE_CONTENT.hero;
             <a
               href={resumeHref}
               download
-              class="rounded-sm border border-white/20 bg-transparent px-4 py-2 text-xs font-mono tracking-widest uppercase text-white/70 transition-colors active:bg-white/5"
+              class="rounded-sm border border-white/20 bg-white/5 px-4 py-2 text-xs font-mono tracking-widest uppercase text-white/90 transition-colors active:bg-white/10"
             >
               Resume
             </a>
@@ -50,7 +50,7 @@ const { linkedin, github } = SITE_CONTENT.hero;
             <li>
               <a 
                 href={link.href} 
-                class="desktop-nav-link text-xs font-mono tracking-widest uppercase text-white/40 transition-colors duration-200 hover:text-white"
+                class="desktop-nav-link text-xs font-mono tracking-widest uppercase text-white/80 transition-colors duration-200 hover:text-white"
                 data-section={link.href.substring(1)}
               >
                 {link.text}
@@ -64,7 +64,7 @@ const { linkedin, github } = SITE_CONTENT.hero;
       <div class="hidden shrink-0 flex-nowrap items-center gap-6 whitespace-nowrap pl-8 md:flex md:border-l md:border-white/10">
         {
           linkedin && (
-            <a href={linkedin} target="_blank" rel="noopener noreferrer" class="hidden text-white/30 transition-colors duration-200 hover:text-white lg:block">
+            <a href={linkedin} target="_blank" rel="noopener noreferrer" class="hidden text-white/80 transition-colors duration-200 hover:text-white lg:block">
               <svg viewBox="0 0 24 24" class="h-4 w-4 fill-none stroke-current stroke-[1.5]">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
                 <rect x="2" y="9" width="4" height="12" rx="1" />
@@ -75,7 +75,7 @@ const { linkedin, github } = SITE_CONTENT.hero;
         }
         {
           github && (
-            <a href={github} target="_blank" rel="noopener noreferrer" class="hidden text-white/30 transition-colors duration-200 hover:text-white lg:block">
+            <a href={github} target="_blank" rel="noopener noreferrer" class="hidden text-white/80 transition-colors duration-200 hover:text-white lg:block">
               <svg viewBox="0 0 24 24" class="h-4 w-4 fill-none stroke-current stroke-[1.5]">
                 <path d="M9 19c-4 1.5-4-2-6-2m12 4v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.1-1.5 6.1-6.7A5.2 5.2 0 0 0 18.8 4 4.8 4.8 0 0 0 18.7.4S17.5 0 15 1.7a13.4 13.4 0 0 0-6 0C6.5 0 5.3.4 5.3.4A4.8 4.8 0 0 0 5.2 4a5.2 5.2 0 0 0-1.4 3.8c0 5.2 3.1 6.4 6.1 6.7A3.4 3.4 0 0 0 9 17.1V21" />
               </svg>
@@ -87,7 +87,7 @@ const { linkedin, github } = SITE_CONTENT.hero;
             <a
               href={resumeHref}
               download
-              class="rounded-sm border border-white/20 bg-transparent px-5 py-2.5 text-xs font-mono tracking-widest uppercase text-white/80 transition-all duration-300 hover:bg-white/5"
+              class="rounded-sm border border-white/20 bg-white/5 px-5 py-2.5 text-xs font-mono tracking-widest uppercase text-white/90 transition-all duration-300 hover:bg-white/10"
             >
               Resume
             </a>
@@ -161,11 +161,11 @@ const { linkedin, github } = SITE_CONTENT.hero;
 
           navLinks.forEach(link => {
             link.classList.remove("text-white");
-            link.classList.add("text-white/40");
+            link.classList.add("text-white/80");
           });
 
           if (activeElement) {
-            activeElement.classList.remove("text-white/40");
+            activeElement.classList.remove("text-white/80");
             activeElement.classList.add("text-white");
           }
         }
@@ -192,9 +192,9 @@ const { linkedin, github } = SITE_CONTENT.hero;
         if (activeElement) {
           navLinks.forEach(l => {
             l.classList.remove("text-white");
-            l.classList.add("text-white/40");
+            l.classList.add("text-white/80");
           });
-          activeElement.classList.remove("text-white/40");
+          activeElement.classList.remove("text-white/80");
           activeElement.classList.add("text-white");
         }
       }

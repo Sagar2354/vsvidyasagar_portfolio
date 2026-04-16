@@ -13,24 +13,24 @@ const { projects } = Astro.props;
   <div class="grid gap-10">
     {
       projects.map(({ name, summary, image, techStack, linkPreview, linkSource }) => (
-        <article class="tilt-card fade-in-section overflow-hidden rounded-[32px] border border-white/10 bg-white/4 shadow-[0_28px_80px_rgba(2,6,23,0.26)] transition-colors duration-300 hover:border-primary/30">
+        <article class="tilt-card fade-in-section overflow-hidden rounded-[32px] border border-white/10 border-t-white/20 border-l-white/20 bg-white/5 md:bg-white/10 backdrop-blur-[12px] md:backdrop-blur-[20px] shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-colors duration-300 hover:bg-white/[0.15]">
           <div class="grid gap-0 xl:grid-cols-[1.2fr_1fr]">
             <div class="flex flex-col justify-between p-8 md:p-10">
               <div>
                 <h3 class="mb-5 font-serif text-3xl font-medium text-white md:text-4xl">
                   {name}
                 </h3>
-                <p class="mb-8 max-w-2xl text-base text-neutral md:text-lg">{summary}</p>
+                <p class="mb-8 max-w-2xl text-base text-white/85 glass-text md:text-lg">{summary}</p>
 
                 {
                   techStack && techStack.length > 0 && (
                     <div class="mb-8">
-                      <p class="mb-3 text-xs font-semibold tracking-[0.22em] text-primary uppercase">
+                      <p class="mb-3 text-xs font-semibold tracking-[0.22em] text-white/65 uppercase">
                         Tech Stack
                       </p>
                       <div class="flex flex-wrap gap-3">
                         {techStack.map((item) => (
-                          <span class="rounded-full border border-white/10 bg-black/25 px-4 py-2 text-sm text-white/85">
+                          <span class="rounded-full border border-white/10 border-t-white/20 border-l-white/20 bg-white/5 backdrop-blur-sm px-4 py-2 text-sm text-white/85 glass-text">
                             {item}
                           </span>
                         ))}
@@ -62,7 +62,7 @@ const { projects } = Astro.props;
                       href={linkSource}
                       target="_blank"
                       aria-label={`${name} GitHub repository`}
-                      class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/12 bg-white/4 text-white transition-colors duration-300 hover:border-primary hover:text-primary"
+                      class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/20 border-t-white/30 border-l-white/30 bg-white/10 backdrop-blur-md text-white transition-colors duration-300 hover:bg-white/20"
                     >
                       <svg
                         viewBox="0 0 24 24"

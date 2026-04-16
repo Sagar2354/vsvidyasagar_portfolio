@@ -10,7 +10,7 @@ const { skills } = Astro.props;
 ---
 
 <Section text="Technical Skills" href="skills">
-  <p class="mb-10 max-w-3xl text-lg text-neutral">
+  <p class="mb-10 max-w-3xl text-lg text-white/85 glass-text">
     Proficient in modern data engineering and analytics tooling for ingestion,
     transformation, orchestration, and insight delivery.
   </p>
@@ -18,11 +18,11 @@ const { skills } = Astro.props;
   <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
     {
       skills.map(({ title, items }) => (
-        <article class="tilt-card fade-in-section rounded-3xl border border-white/10 bg-white/4 p-8 shadow-[0_24px_70px_rgba(2,6,23,0.22)]">
+        <article class="tilt-card fade-in-section rounded-[28px] md:rounded-[36px] border border-white/10 border-t-white/20 border-l-white/20 bg-white/5 md:bg-white/10 backdrop-blur-[12px] md:backdrop-blur-[20px] p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
           <h3 class="mb-4 font-serif text-2xl font-semibold text-white">{title}</h3>
           <ul class="ml-5 list-outside list-disc space-y-3">
             {items.map((item) => (
-              <li class="text-base text-neutral">{item}</li>
+              <li class="text-base text-white/85 glass-text">{item}</li>
             ))}
           </ul>
         </article>

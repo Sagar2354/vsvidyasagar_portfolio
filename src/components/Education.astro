@@ -13,13 +13,13 @@ const { education } = Astro.props;
   <div class="grid gap-6">
     {
       education.map(({ degree, institution, year, cgpa }) => (
-        <article class="tilt-card fade-in-section rounded-3xl border border-white/10 bg-white/4 p-8 md:p-10 shadow-[0_24px_70px_rgba(2,6,23,0.22)]">
+        <article class="tilt-card fade-in-section rounded-[28px] md:rounded-[36px] border border-white/10 border-t-white/20 border-l-white/20 bg-white/5 md:bg-white/10 backdrop-blur-[12px] md:backdrop-blur-[20px] p-8 md:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
           <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
             <div>
               <h3 class="font-serif text-2xl font-medium text-white">{degree}</h3>
-              <p class="mt-2 text-base text-neutral">{institution}</p>
+              <p class="mt-2 text-base text-white/85 glass-text">{institution}</p>
             </div>
-            <div class="text-sm text-white/70">
+            <div class="text-sm text-white/65 tracking-widest uppercase">
               <p>{year}</p>
               {cgpa && <p class="mt-1">{cgpa}</p>}
             </div>
